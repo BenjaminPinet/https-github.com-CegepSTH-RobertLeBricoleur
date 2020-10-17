@@ -3,6 +3,9 @@
 #include "define.h"
 #include "openglcontext.h"
 #include "texture.h"
+#include "vector3.h"
+#include "transformation.h"
+#include "Player.h"
 
 class Engine : public OpenglContext
 {
@@ -21,6 +24,7 @@ public:
     virtual void MouseReleaseEvent(const MOUSE_BUTTON &button, int x, int y);
 
 private:
+    Player m_player;
     bool LoadTexture(Texture& texture, const std::string& filename, bool stopOnError = true);
 
 private:

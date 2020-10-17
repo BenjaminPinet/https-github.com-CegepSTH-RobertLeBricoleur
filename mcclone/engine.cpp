@@ -65,6 +65,8 @@ void Engine::Render(float elapsedTime)
     // Transformations initiales
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    m_player.ApplyTransformation();
+
 
     // Plancher
     // Les vertex doivent etre affiches dans le sens anti-horaire (CCW)

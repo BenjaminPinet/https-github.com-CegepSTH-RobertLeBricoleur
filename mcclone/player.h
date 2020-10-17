@@ -10,7 +10,7 @@ class Player
 private:
 	float m_rotX;
 	float m_rotY;
-	Vector3f& m_position;
+	Vector3f m_position;
 
 public:
 	Player(const Vector3f& position, float rotX = 0, float rotY = 0);

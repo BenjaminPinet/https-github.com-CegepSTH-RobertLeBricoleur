@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-Engine::Engine()
+Engine::Engine() : m_player(Vector3f(0, 0, 5.f), 0, 0)
 {
 }
 
@@ -57,7 +57,7 @@ void Engine::UnloadResource()
 void Engine::Render(float elapsedTime)
 {
     static float gameTime = elapsedTime;
-
+    m_player.Move(m_keyW, m_keyS, m_keyA, m_keyD, elapsedTime);
     gameTime += elapsedTime;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -65,7 +65,7 @@ void Engine::Render(float elapsedTime)
     // Transformations initiales
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    m_player.ApplyTransformation();
+    m_player.ApplyTransformation(Transformation::Transformation());
 
 
     // Plancher
@@ -89,6 +89,10 @@ void Engine::KeyPressEvent(unsigned char key)
 {
     switch(key)
     {
+        case 22: m_keyW = true; break; //W, forward
+        case 0: m_keyA = true; break; //A, left
+        case 18: m_keyS = true; break; //S, back
+        case 3: m_keyD = true; break; //D, right
         case 36: // ESC
             Stop();
             break;
@@ -104,6 +108,10 @@ void Engine::KeyReleaseEvent(unsigned char key)
 {
     switch(key)
     {
+        case 22: m_keyW = false; break; //W, forward
+        case 0: m_keyA = false; break; //A, left
+        case 18: m_keyS = false; break; //S, back
+        case 3: m_keyD = false; break; //D, right
         case 24: // Y
             m_wireframe = !m_wireframe;
             if(m_wireframe)

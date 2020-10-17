@@ -1,10 +1,7 @@
 #include "player.h"
 
-Player::Player(const Vector3f& position, float rotX, float rotY)
+Player::Player(const Vector3f& position, float rotX, float rotY) : m_position(position), m_rotX(rotX), m_rotY(rotY)
 {
-    m_position = position;
-    m_rotX = rotX;
-    m_rotY = rotY;
 }
 
 void Player::TurnLeftRight(float value)
@@ -14,7 +11,7 @@ void Player::TurnLeftRight(float value)
 
 void Player::TurnTopBottom(float value)
 {
-    
+    m_rotY += value;
 }
 
 void Player::Move(bool front, bool back, bool left, bool right, float elapsedTime)
@@ -25,8 +22,8 @@ void Player::Move(bool front, bool back, bool left, bool right, float elapsedTim
         yrotrad = (m_rotY / 180 * 3.141592654f);
         xrotrad = (m_rotX / 180 * 3.141592654f);
         m_rotX += float(sin(yrotrad));
-        m_position – = float(cos(yrotrad));
-        m_rotY – = float(sin(xrotrad));
+        m_position = m_position - float(cos(yrotrad));
+        m_rotY = m_rotY - float(sin(xrotrad));
     }
 
     if (back)
@@ -34,7 +31,7 @@ void Player::Move(bool front, bool back, bool left, bool right, float elapsedTim
         float xrotrad, yrotrad;
         yrotrad = (m_rotY / 180 * 3.141592654f);
         xrotrad = (m_rotX / 180 * 3.141592654f);
-        m_rotX – = float(sin(yrotrad));
+        m_rotX = m_rotX - float(sin(yrotrad));
         m_position += float(cos(yrotrad));
         m_rotY += float(sin(xrotrad));
     }
@@ -51,8 +48,8 @@ void Player::Move(bool front, bool back, bool left, bool right, float elapsedTim
     {
         float yrotrad;
         yrotrad = (m_rotY / 180 * 3.141592654f);
-        m_rotX –= float(cos(yrotrad)) * 0.2;
-        m_position –= float(sin(yrotrad)) * 0.2;
+        m_rotX = m_rotX - float(cos(yrotrad)) * 0.2;
+        m_position = m_position - float(sin(yrotrad)) * 0.2;
     }
 }
 
